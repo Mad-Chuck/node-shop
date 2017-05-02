@@ -1,0 +1,17 @@
+body {
+  padding-top: 70px; }
+
+footer {
+  background: #EEEEEE;
+  text-align: center; }
+  footer img {
+    display: block;
+    margin: 0 auto; }
+
+hr {
+  border-color: #DDDDDD; }
+
+.price {
+  font-weight: bold; }
+
+/*# sourceMappingURL=style.css.map */
