@@ -22,7 +22,7 @@ router.post('/update-cart', function(req, res, next) {
     var productId, i;
     for (i = 0; i < dataCount; i++){
         productId = Object.keys(data)[i];
-        if (typeof cart.items[productId] !== 'undefined' && !(data[productId] === cart.items[productId].qty) && data[productId] % 1 === 0 && data[productId] >= 0){
+        if (productId.match(/^[0-9a-fA-F]{24}$/) && typeof cart.items[productId] !== 'undefined' && !(data[productId] === cart.items[productId].qty) && data[productId] % 1 === 0 && data[productId] >= 0){
             cart.changeQty(productId, data[productId]);
             updated = true;
         }
@@ -35,7 +35,7 @@ router.post('/update-cart', function(req, res, next) {
         req.flash('cartSuccess', 'Cart has been updated');
         res.redirect('back');
     } else {
-        req.flash('cartSuccess', 'No data needs to be changes');
+        req.flash('cartSuccess', 'Nothing needs to be updated');
         res.redirect('back');
     }
 });
@@ -72,33 +72,39 @@ router.get('/add-to-cart/:id', function(req, res, next) {
    var productId = req.params.id;
    var cart = new Cart(req.session.cart ? req.session.cart : {});
 
-   Product.findById(productId, function(err, product) {
-       if (err) {
-           throw err;
-           return res.redirect('/');
-       }
-       cart.add(product, product.id);
-       req.session.cart = cart;
-       //console.log(req.session.cart);
-       res.redirect('back');
-   })
+
+    if (productId.match(/^[0-9a-fA-F]{24}$/)) {
+        Product.findById(productId, function(err, product) {
+            if (err) {
+                throw err;
+                return res.redirect('/');
+            }
+            cart.add(product, product.id);
+            req.session.cart = cart;
+            //console.log(req.session.cart);
+            res.redirect('back');
+        })
+    } else {
+        //console.log('Somebody is putting wrong data to /add-to-cart get route')
+        res.redirect('back');
+    }
 });
 
 router.get('/remove-from-cart/:id', function(req, res, next) {
     var productId = req.params.id;
     var cart = new Cart(req.session.cart ? req.session.cart : {});
 
-    Product.findById(productId, function(err, product) {
-        if (err) {
-            throw err;
-            return res.redirect('/');
-        }
-        cart.remove(product, product.id);
+    //there is no need to check if it is id, because in cart.items can only be id
+    if (typeof cart.items[productId] !== 'undefined'){
+        cart.remove(productId);
         req.session.cart = cart;
         //console.log(req.session.cart);
         req.flash('cartSuccess', 'Product has been deleted.');
         res.redirect('back');
-    })
+    } else {
+        //console.log("Somebody is putting wrong data to /remove-from-cart get route");
+        res.redirect('back');
+    }
 });
 
 /*router.get('/change-qty/:id/:qty', function(req, res, next) {
@@ -111,7 +117,7 @@ router.get('/remove-from-cart/:id', function(req, res, next) {
             throw err;
             return res.redirect('/');
         }
-        cart.changeQty(product, product.id, qty);
+        cart.changeQty(product.id, qty);
         req.session.cart = cart;
         console.log(req.session.cart);
         req.flash('cartSuccess', 'Cart has been updated');
@@ -133,7 +139,6 @@ router.post('/register', isNotLoggedIn, function(req, res, next) {
     if (errors){
         req.flash('registerErrors', 'You can\'t leave fields empty.');
         res.redirect('/');
-        //no return?
     } else {
         passport.authenticate('local.register', {
             successRedirect: '/',
@@ -150,7 +155,6 @@ router.post('/login', isNotLoggedIn, function(req, res, next) {
     if (errors) {
         req.flash('loginErrors', 'Insert proper data.');
         res.redirect('/');
-        //no return?
     } else {
         passport.authenticate('local.login', {
             successRedirect: '/',
