@@ -53,6 +53,28 @@ router.get('/', function(req, res, next) {
     });
 });
 
+router.get('/product/:url', function(req, res, next) {
+    var productUrl = req.params.url;
+
+    //validation could be done better probably
+    if (productUrl.match(/[-0-9a-zA-Z]\w+/)) {
+        Product.findOne({ 'url': productUrl }, function(err, product) {
+            if (err) {
+                throw err;
+                return res.redirect('/');
+            }
+            res.render('product', {
+                product: product,
+                csrfToken: req.csrfToken()
+            })
+        })
+    } else {
+        var err = new Error('Not Found');
+        err.status = 404;
+        next(err);
+    }
+});
+
 router.get('/checkout', function(req, res, next) {
     if  (req.session.cart.totalPrice > 0) {
         res.render('checkout', {
@@ -142,7 +164,7 @@ router.post('/register', isNotLoggedIn, function(req, res, next) {
     } else {
         passport.authenticate('local.register', {
             successRedirect: '/',
-            failureRedirect: '/',
+            failureRedirect: 'back',
             failureFlash: false
         })(req,res,next);
     }
@@ -158,7 +180,7 @@ router.post('/login', isNotLoggedIn, function(req, res, next) {
     } else {
         passport.authenticate('local.login', {
             successRedirect: '/',
-            failureRedirect: '/',
+            failureRedirect: 'back',
             failureFlash: false
         })(req,res,next);
     }
