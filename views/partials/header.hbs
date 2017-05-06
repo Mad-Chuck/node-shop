@@ -14,27 +14,76 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                <li><a href="#">Link</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">One more separated link</a></li>
+                <li class="dropdown dropdown-large">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Categories <b class="caret"></b></a>
+
+                    <ul class="dropdown-menu dropdown-menu-large row">
+                        <li class="col-sm-3">
+                            <ul>
+                                <li class="dropdown-header">Glyphicons</li>
+                                <li><a href="#">Available glyphs</a></li>
+                                <li class="disabled"><a href="#">How to use</a></li>
+                                <li><a href="#">Examples</a></li>
+                                <li class="divider"></li>
+                                <li class="dropdown-header">Dropdowns</li>
+                                <li><a href="#">Example</a></li>
+                                <li><a href="#">Aligninment options</a></li>
+                                <li><a href="#">Headers</a></li>
+                                <li><a href="#">Disabled menu items</a></li>
+                            </ul>
+                        </li>
+                        <li class="col-sm-3">
+                            <ul>
+                                <li class="dropdown-header">Button groups</li>
+                                <li><a href="#">Basic example</a></li>
+                                <li><a href="#">Button toolbar</a></li>
+                                <li><a href="#">Sizing</a></li>
+                                <li><a href="#">Nesting</a></li>
+                                <li><a href="#">Vertical variation</a></li>
+                                <li class="divider"></li>
+                                <li class="dropdown-header">Button dropdowns</li>
+                                <li><a href="#">Single button dropdowns</a></li>
+                            </ul>
+                        </li>
+                        <li class="col-sm-3">
+                            <ul>
+                                <li class="dropdown-header">Input groups</li>
+                                <li><a href="#">Basic example</a></li>
+                                <li><a href="#">Sizing</a></li>
+                                <li><a href="#">Checkboxes and radio addons</a></li>
+                                <li class="divider"></li>
+                                <li class="dropdown-header">Navs</li>
+                                <li><a href="#">Tabs</a></li>
+                                <li><a href="#">Pills</a></li>
+                                <li><a href="#">Justified</a></li>
+                            </ul>
+                        </li>
+                        <li class="col-sm-3">
+                            <ul>
+                                <li class="dropdown-header">Navbar</li>
+                                <li><a href="#">Default navbar</a></li>
+                                <li><a href="#">Buttons</a></li>
+                                <li><a href="#">Text</a></li>
+                                <li><a href="#">Non-nav links</a></li>
+                                <li><a href="#">Component alignment</a></li>
+                                <li><a href="#">Fixed to top</a></li>
+                                <li><a href="#">Fixed to bottom</a></li>
+                                <li><a href="#">Static top</a></li>
+                                <li><a href="#">Inverted navbar</a></li>
+                            </ul>
+                        </li>
                     </ul>
+
                 </li>
             </ul>
+
             <form class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
+                <div class="input-group">
+                    <input type="email" id="email" name="email" placeholder="Search" class="form-control">
+                    <span class="input-group-btn"><button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button></span>
                 </div>
-                <button type="submit" class="btn btn-default">Submit</button>
             </form>
+
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#" data-toggle="modal" data-target="#shoppingModal"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Shopping cart <span class="badge">{{#if session.cart.totalQty}}{{session.cart.totalQty}}{{/if}}</span></a></li>
                 {{#if isLogged}}

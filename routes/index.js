@@ -64,6 +64,7 @@ router.get('/product/:url', function(req, res, next) {
                 return res.redirect('/');
             }
             res.render('product', {
+                title: product.title,
                 product: product,
                 csrfToken: req.csrfToken()
             })
@@ -88,12 +89,9 @@ router.get('/checkout', function(req, res, next) {
     }
 });
 
-
-
-router.get('/add-to-cart/:id', function(req, res, next) {
-   var productId = req.params.id;
-   var cart = new Cart(req.session.cart ? req.session.cart : {});
-
+router.get('/add-one-to-cart/:id', function(req, res, next) {
+    var productId = req.params.id;
+    var cart = new Cart(req.session.cart ? req.session.cart : {});
 
     if (productId.match(/^[0-9a-fA-F]{24}$/)) {
         Product.findById(productId, function(err, product) {
@@ -101,6 +99,7 @@ router.get('/add-to-cart/:id', function(req, res, next) {
                 throw err;
                 return res.redirect('/');
             }
+            console.log(productId);
             cart.add(product, product.id);
             req.session.cart = cart;
             //console.log(req.session.cart);
@@ -108,6 +107,30 @@ router.get('/add-to-cart/:id', function(req, res, next) {
         })
     } else {
         //console.log('Somebody is putting wrong data to /add-to-cart get route')
+        res.redirect('back');
+    }
+});
+
+router.get('/add-to-cart', function(req, res, next) {
+    var productId = req.query.productId;
+    var qty = req.query.qty;
+
+    var cart = new Cart(req.session.cart ? req.session.cart : {});
+
+    if (productId.match(/^[0-9a-fA-F]{24}$/) && qty % 1 === 0 && qty >= 0) {
+        Product.findById(productId, function(err, product) {
+            if (err) {
+                throw err;
+                return res.redirect('/');
+            }
+            console.log(productId, qty);
+            cart.addMultiple(product, product.id, +qty);
+            req.session.cart = cart;
+            //console.log(req.session.cart);
+            res.redirect('back');
+        })
+    } else {
+        //console.log('Somebody is putting wrong data to /add-to-cart post route')
         res.redirect('back');
     }
 });
