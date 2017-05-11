@@ -17,7 +17,7 @@
                 {{/if}}
                 <hr>
                 {{#if session.cart.totalQty}}
-                    <form action="/update-cart" method="post" class="clearfix">
+                    <form action="/shopping-cart/update" method="post" class="clearfix">
                         <table class="table">
                             <thead>
                             <tr>
@@ -46,7 +46,7 @@
                                     </td>
                                     <td><strong>{{this.price}}</strong></td>
                                     <td>
-                                        <a href="/remove-from-cart/{{this.item._id}}" class="close" role="button"><span aria-hidden="true">&times;</span></a>
+                                        <a href="/shopping-cart/remove/{{this.item._id}}" class="close" role="button"><span aria-hidden="true">&times;</span></a>
                                     </td>
                                 </tr>
                             {{/each}}

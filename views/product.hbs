@@ -23,8 +23,8 @@
         <div class="section">
             <h6 class="title-attr" style="margin-top:15px;" ><small>COLOR</small></h6>
             <div>
-                <div class="attr" style="width:25px;background:#5a5a5a;"></div>
-                <div class="attr" style="width:25px;background:white;"></div>
+                <div class="attr">Black</div>
+                <div class="attr">White</div>
             </div>
         </div>
         <div class="section" style="padding-bottom:5px;">
@@ -34,14 +34,14 @@
                 <div class="attr2">32 GB</div>
             </div>
         </div>
-        <form class="form-group" action="../add-to-cart/" method="get">
+        <form class="form-group" action="/shopping-cart/add" method="get">
             <h6 class="title-attr"><small><label for="qty">QUANTITY</label></small></h6>
             <input type="number" name="qty" id="qty" class="form-control" value="1" min="1" step="1">
             <input type="hidden" name="productId" value="{{product._id}}">
             <button class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to cart</button>
         </form>
 
-            <h6><a href="#"><span class="glyphicon glyphicon-heart-empty" style="cursor:pointer;"></span> Agregar a lista de deseos</a></h6>
+            <h6><a href="#"><span class="glyphicon glyphicon-heart-empty" style="cursor:pointer;"></span> Add to wishlist</a></h6>
 
     </div>
 
