@@ -63,6 +63,7 @@ app.use(function(req, res, next) {
     res.locals.hasCartSuccess = res.locals.cartSuccess.length > 0;
     res.locals.cartErrors = req.flash('cartErrors');
     res.locals.hasCartErrors = res.locals.cartErrors.length > 0;
+    res.locals.searchQuery = req.cookies.searchQuery || '';
     next();
 });
 

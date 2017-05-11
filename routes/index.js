@@ -8,14 +8,31 @@ router.use(csrfProtection);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    //unnecessary function, to be changed
-    Product.find(function(err, docs) {
-        res.render('index', {
-            title: 'Shop',
-            products: docs,
-            csrfToken: req.csrfToken()
+    // will also accept empty string
+    if(typeof (req.query.search) !== 'undefined') {
+        const searchQuery = new RegExp(req.query.search.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), 'gi');
+        res.cookie('searchQuery', req.query.search);
+
+        Product.find({ "title": searchQuery }, function(err, docs) {
+            res.render('index', {
+                title: 'Shop',
+                products: docs,
+                search: true,
+                hasSearchResults: docs.length > 0,
+                csrfToken: req.csrfToken(),
+                //"save cookie to locals before sending res"
+                searchQuery: req.query.search
+            });
         });
-    });
+    } else {
+        Product.find(function(err, docs) {
+            res.render('index', {
+                title: 'Shop',
+                products: docs,
+                csrfToken: req.csrfToken()
+            });
+        });
+    }
 });
 
 router.get('/checkout', function(req, res, next) {
