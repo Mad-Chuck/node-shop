@@ -13,11 +13,14 @@ router.get('/', function(req, res, next) {
         const searchQuery = new RegExp(req.query.search.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&"), 'gi');
         res.cookie('searchQuery', req.query.search);
 
-        Product.find({ "title": searchQuery }, function(err, docs) {
+        Product.find({$or:[
+                {"title": searchQuery},
+                {"description": searchQuery}
+        ]}, function(err, docs) {
             res.render('index', {
                 title: 'Shop',
                 products: docs,
-                search: true,
+                searchDone: true,
                 hasSearchResults: docs.length > 0,
                 csrfToken: req.csrfToken(),
                 //"save cookie to locals before sending res"
