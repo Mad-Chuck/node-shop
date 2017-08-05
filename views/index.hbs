@@ -75,3 +75,31 @@
         </div>
     {{/each}}
 </div>
+
+
+<div class="well well-sm clearfix">
+    <strong>Category Title</strong>
+    <div class="btn-group pull-right">
+        <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
+        </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
+            class="glyphicon glyphicon-th"></span>Grid</a>
+    </div>
+</div>
+<div id="products" class="row list-group">
+    {{#each products}}
+        <div class="item  col-xs-4 col-lg-4">
+            <div class="thumbnail">
+                <!--<img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />-->
+                <img src="{{this.imagePath}}" alt="..." style="max-width: 400px; max-height: 250px;">
+                <div class="caption">
+                    <a href="/product/{{this.url}}"><h3>{{this.title}}</h3></a>
+                    <p>{{this.description}}</p>
+                    <div class="clearfix">
+                        <div class="price pull-left">{{this.price}} zł</div>
+                        <a href="shopping-cart/add?qty=1&productId={{this._id}}" class="btn btn-primary pull-right" role="button"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{/each}}
+</div>

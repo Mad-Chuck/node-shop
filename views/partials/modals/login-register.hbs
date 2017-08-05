@@ -1,90 +1,90 @@
-{{#if isLogged}}
-{{else}}
-    <!-- userModal -->
-    <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs" role="tablist" id="userTabs">
-                        <li role="presentation" class="active"><a href="#login" aria-controls="home" role="tab" data-toggle="tab">Login</a></li>
-                        <li role="presentation"><a href="#register" aria-controls="profile" role="tab" data-toggle="tab">Register</a></li>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    </ul>
-                    <!-- Tab panes -->
-                    <div class="tab-content">
+    {{#if isLogged}}
+    {{else}}
+        <!-- userModal -->
+        <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist" id="userTabs">
+                            <li role="presentation" class="active"><a href="#login" aria-controls="home" role="tab" data-toggle="tab">Login</a></li>
+                            <li role="presentation"><a href="#register" aria-controls="profile" role="tab" data-toggle="tab">Register</a></li>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
 
-                        <div role="tabpanel" class="tab-pane fade in active" id="login">
-                            <h1>Log in</h1>
-                            {{#if hasLoginErrors}}
-                                <div class="alert alert-danger">
-                                    {{#each loginErrors}}
-                                        <p><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {{this}}</p>
-                                    {{/each}}
-                                </div>
-                            {{/if}}
-                            <form action="/user/login" method="post" class="clearfix">
-                                <label for="email">E-Mail</label>
-                                <div class="input-group">
-                                    <input type="email" id="email" name="email" class="form-control">
-                                    <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-envelope"></span></span>
-                                </div>
-                                <br><label for="password">Password</label>
-                                <div class="input-group">
-                                    <input type="password" id="password" name="password" class="form-control">
-                                    <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-lock"></span></span>
-                                </div>
-                                <input type="hidden" name="_csrf" value="{{csrfToken}}">
-                                <hr>
-                                <button type="submit" class="btn btn-primary pull-right">Login</button>
-                            </form>
+                            <div role="tabpanel" class="tab-pane fade in active" id="login">
+                                <h1>Log in</h1>
+                                {{#if hasLoginErrors}}
+                                    <div class="alert alert-danger">
+                                        {{#each loginErrors}}
+                                            <p><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {{this}}</p>
+                                        {{/each}}
+                                    </div>
+                                {{/if}}
+                                <form action="/user/login" method="post" class="clearfix">
+                                    <label for="email">E-Mail</label>
+                                    <div class="input-group">
+                                        <input type="email" id="email" name="email" class="form-control">
+                                        <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-envelope"></span></span>
+                                    </div>
+                                    <br><label for="password">Password</label>
+                                    <div class="input-group">
+                                        <input type="password" id="password" name="password" class="form-control">
+                                        <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-lock"></span></span>
+                                    </div>
+                                    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                                    <hr>
+                                    <button type="submit" class="btn btn-primary pull-right">Login</button>
+                                </form>
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane fade" id="register">
+                                <h1>Create an account</h1>
+                                {{#if hasRegisterErrors}}
+                                    <div class="alert alert-danger">
+                                        {{#each registerErrors}}
+                                            <p><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {{this}}</p>
+                                        {{/each}}
+                                    </div>
+                                {{/if}}
+                                <form action="/user/register" method="post" class="clearfix">
+                                    <label for="email">E-Mail</label>
+                                    <div class="input-group">
+                                        <input type="email" id="email" name="email" class="form-control">
+                                        <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-envelope"></span></span>
+                                    </div>
+                                    <br><label for="password">Password</label>
+                                    <div class="input-group">
+                                        <input type="password" id="password" name="password" class="form-control">
+                                        <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-lock"></span></span>
+                                    </div>
+                                    <hr>
+                                    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+                                    <button type="submit" class="btn btn-primary pull-right">Register</button>
+                                </form>
+                            </div>
+
                         </div>
-
-                        <div role="tabpanel" class="tab-pane fade" id="register">
-                            <h1>Create an account</h1>
-                            {{#if hasRegisterErrors}}
-                                <div class="alert alert-danger">
-                                    {{#each registerErrors}}
-                                        <p><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {{this}}</p>
-                                    {{/each}}
-                                </div>
-                            {{/if}}
-                            <form action="/user/register" method="post" class="clearfix">
-                                <label for="email">E-Mail</label>
-                                <div class="input-group">
-                                    <input type="email" id="email" name="email" class="form-control">
-                                    <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-envelope"></span></span>
-                                </div>
-                                <br><label for="password">Password</label>
-                                <div class="input-group">
-                                    <input type="password" id="password" name="password" class="form-control">
-                                    <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-lock"></span></span>
-                                </div>
-                                <hr>
-                                <input type="hidden" name="_csrf" value="{{csrfToken}}">
-                                <button type="submit" class="btn btn-primary pull-right">Register</button>
-                            </form>
-                        </div>
-
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    {{#if hasRegisterErrors}}
-        <!-- This activates the register tab/modal in case of errors -->
-        <script>
-            $('#userModal').modal('show');
-            $('#userTabs li:eq(1) a').tab('show');
-        </script>
-    {{/if}}
-    {{#if hasLoginErrors}}
-        <!-- This activates the register tab/modal in case of errors -->
-        <script>
-            $('#userModal').modal('show');
-            $('#userTabs li:eq(0) a').tab('show');
-        </script>
-    {{/if}}
+        {{#if hasRegisterErrors}}
+            <!-- This activates the register tab/modal in case of errors -->
+            <script>
+                $('#userModal').modal('show');
+                $('#userTabs li:eq(1) a').tab('show');
+            </script>
+        {{/if}}
+        {{#if hasLoginErrors}}
+            <!-- This activates the register tab/modal in case of errors -->
+            <script>
+                $('#userModal').modal('show');
+                $('#userTabs li:eq(0) a').tab('show');
+            </script>
+        {{/if}}
 
-{{/if}}
+    {{/if}}

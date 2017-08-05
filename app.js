@@ -24,7 +24,7 @@ var databaseName = 'test';
 var secretKey = 'secretKey';
 /* end of admin variables */
 
-mongoose.connect('localhost:27017/'+databaseName);
+mongoose.connect('127.0.0.1:27017/'+databaseName);
 
 require('./config/passport');
 
